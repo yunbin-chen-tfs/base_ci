@@ -18,6 +18,12 @@ if [ ! -d /var/jenkins_home ] ; then
     sudo chown 1000:1000 /var/jenkins_home
 fi
 
+# Create TFTP shared folder
+if [ ! -d /var/jenkins_home/tftp ] ; then
+    sudo mkdir -p -v /var/jenkins_home/tftp
+    sudo chown 1000:1000 /var/jenkins_home/tftp
+fi
+
 # For using yocto cache
 if [ ! -d /var/jenkins_home/yocto ] ; then
     sudo mkdir -p -v /var/jenkins_home/yocto/{dl,sstate}

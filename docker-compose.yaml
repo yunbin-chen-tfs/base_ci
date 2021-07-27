@@ -17,3 +17,10 @@ services:
         ports:
             - 8080:8080
             - 50000:50000
+    tftp:
+        build:
+            context: ./tftp
+        volumes:
+            - /var/jenkins_home/tftp:/srv/tftp
+        ports:
+            - 69:69/udp

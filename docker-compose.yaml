@@ -24,3 +24,14 @@ services:
             - /var/jenkins_home/tftp:/srv/tftp
         ports:
             - 69:69/udp
+    nfs:
+        image: itsthenetwork/nfs-server-alpine:12
+        container_name: nfs
+        restart: unless-stopped
+        privileged: true
+        environment:
+            - SHARED_DIRECTORY=/srv/nfs
+        volumes:
+            - /var/jenkins_home/nfs:/srv/nfs
+        ports:
+            - 2049:2049

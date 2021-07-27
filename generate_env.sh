@@ -24,6 +24,12 @@ if [ ! -d /var/jenkins_home/tftp ] ; then
     sudo chown 1000:1000 /var/jenkins_home/tftp
 fi
 
+# Create NFS shared folder
+if [ ! -d /var/jenkins_home/nfs ] ; then
+    sudo mkdir -p -v /var/jenkins_home/nfs
+    sudo chown 1000:1000 /var/jenkins_home/nfs
+fi
+
 # For using yocto cache
 if [ ! -d /var/jenkins_home/yocto ] ; then
     sudo mkdir -p -v /var/jenkins_home/yocto/{dl,sstate}

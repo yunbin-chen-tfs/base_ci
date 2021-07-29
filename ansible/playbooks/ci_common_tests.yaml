@@ -1,0 +1,38 @@
+# Ansible playbook used to launch Cukinia tests on a target machine
+# and retrieve the result.
+# Cukinia binary and tests are copied to the machine.
+
+---
+- name: Cukinia tests
+  hosts: test_machine
+  vars:
+      cukinia_binary: "{{ cukinia_binary_path }}/cukinia"
+      cukinia_tests: "{{ cukinia_tests_path }}/"
+  tasks:
+      - name: Create temporary Cukinia directory
+        tempfile:
+            path: "{{ ansible_remote_tmp }}"
+            state: directory
+        register: tmp_cukinia_dir
+      - name: Copy Cukinia binary
+        copy:
+            src: "{{ cukinia_binary }}"
+            dest: "{{ tmp_cukinia_dir.path }}"
+            mode: 755
+      - name: Copy Cukinia tests
+        copy:
+            src: "{{ cukinia_tests }}"
+            dest: "{{ tmp_cukinia_dir.path }}"
+      - name: Common tests
+        shell:
+            cmd: >-
+                ROOTFS_NAME={{ rootfs_name_var }}
+                COMMON_TESTS_DIR={{ tmp_cukinia_dir.path }}
+                {{ tmp_cukinia_dir.path }}/cukinia -f junitxml
+                -o {{ tmp_cukinia_dir.path }}/cukinia_common.xml
+                {{ tmp_cukinia_dir.path }}/common.conf || true
+      - name: Fetch result
+        fetch:
+            src: "{{ tmp_cukinia_dir.path }}/cukinia_common.xml"
+            dest: common/cukinia_common.xml
+            flat: yes

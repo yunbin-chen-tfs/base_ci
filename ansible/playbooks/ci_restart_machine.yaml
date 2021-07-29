@@ -1,0 +1,18 @@
+# Ansible playbook used to reboot the machine to be tested.
+
+# Note: Reboot needs to be forced to avoid loosing the connection in
+# the case which the systemd manages the network interface where the
+# nfs-rootfs is available. Ansible built-in 'shell' module is used
+# instead of 'reboot' in order to set this option.
+
+---
+- hosts: test_machine
+  name: Reboot machine
+  tasks:
+      - name: Force reboot
+        shell: /sbin/reboot -f
+        async: 1
+        poll: 0
+      - name: Wait for reboot
+        wait_for_connection:
+            delay: 5

@@ -1,0 +1,16 @@
+# Ansible inventory file for accessing a test target machine. The IP
+# field needs to be set according to your setup.
+
+---
+all:
+    hosts:
+        test_machine:
+            ansible_host: 192.168.216.10  # Change for your setup
+    vars:
+        ansible_connection: ssh
+        ansible_user: root
+        ansible_python_interpreter: /usr/bin/python3
+        ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+        cukinia_tests_path: "../../cukinia"
+        cukinia_binary_path: "../../../cukinia"
+        ansible_remote_tmp: /tmp/.ansible/

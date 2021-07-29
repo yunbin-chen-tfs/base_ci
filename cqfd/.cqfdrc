@@ -1,0 +1,7 @@
+[project]
+org='savoir-faire-linux'
+name='toradex'
+
+# Build configuration
+[build]
+command='./build.sh -v'

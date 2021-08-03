@@ -36,6 +36,9 @@ if [ ! -d /var/jenkins_home/yocto ] ; then
     sudo chown -R 1000:1000 /var/jenkins_home/yocto
 fi
 
+timezone=$(timedatectl status | awk '/Time zone/{ print $3 }')
+
 cat >.env << EOF
 _CI_DOCKER_GID=${docker_gid}
+TIMEZONE=${timezone}
 EOF

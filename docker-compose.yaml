@@ -14,6 +14,8 @@ services:
             - /var/run/docker.sock:/var/run/docker.sock
             - /tmp:/tmp
             - .:/opt/docker
+            - ${NFS_DIR}:/var/jenkins_home/nfs
+            - ${TFTP_DIR}:/var/jenkins_home/tftp
             - "/etc/localtime:/etc/localtime:ro"
         ports:
             - 8080:8080
@@ -22,7 +24,7 @@ services:
         build:
             context: ./tftp
         volumes:
-            - /var/jenkins_home/tftp:/srv/tftp
+            - ${TFTP_DIR}:/srv/tftp
         ports:
             - 69:69/udp
     nfs:
@@ -33,6 +35,6 @@ services:
         environment:
             - SHARED_DIRECTORY=/srv/nfs
         volumes:
-            - /var/jenkins_home/nfs:/srv/nfs
+            - ${NFS_DIR}:/srv/nfs
         ports:
             - 2049:2049

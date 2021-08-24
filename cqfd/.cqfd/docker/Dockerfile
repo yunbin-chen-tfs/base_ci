@@ -25,6 +25,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	g++-multilib \
 	git \
 	git-core \
+	iproute2 \
 	iputils-ping \
 	libncurses5-dev \
 	libsdl1.2-dev \
@@ -57,3 +58,5 @@ RUN gem install asciidoctor-pdf --pre -v 1.5.0.rc2
 RUN sed -i "s/# en_US\.UTF-8 UTF-8/en_US\.UTF-8 UTF-8/" /etc/locale.gen \
 	&& locale-gen \
 	&& dpkg-reconfigure locales
+
+RUN echo 'ALL ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers

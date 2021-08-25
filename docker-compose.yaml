@@ -20,6 +20,9 @@ services:
         ports:
             - 8080:8080
             - 50000:50000
+        devices:
+            - "/dev/net/tun:/dev/net/tun"
+        network_mode: "host"
     tftp:
         build:
             context: ./tftp

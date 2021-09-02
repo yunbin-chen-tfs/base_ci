@@ -5,7 +5,7 @@
 all:
     hosts:
         test_machine:
-            ansible_host: 192.168.216.10  # Change for your setup
+            ansible_host: "{{ target_ip }}"
     vars:
         ansible_connection: ssh
         ansible_user: root
@@ -14,3 +14,4 @@ all:
         cukinia_tests_path: "../../cukinia"
         cukinia_binary_path: "../../../cukinia"
         ansible_remote_tmp: /tmp/.ansible/
+        target_ip: 192.168.216.10  # Change for your setup

@@ -53,6 +53,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Asciidoctor PDF generator for generating the manual
+RUN gem install public_suffix -v 4.0.7
 RUN gem install asciidoctor-pdf
 
 RUN sed -i "s/# en_US\.UTF-8 UTF-8/en_US\.UTF-8 UTF-8/" /etc/locale.gen \
